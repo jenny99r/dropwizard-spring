@@ -91,7 +91,9 @@ public class ConfigurationPlaceholderConfigurer implements BeanFactoryPostProces
 
     /**
      * @param beanFactory
+     * A bean factory
      * @param props
+     * A props
      * @throws BeansException
      */
     protected void processProperties(ConfigurableListableBeanFactory beanFactory, Properties props) throws BeansException {
@@ -103,6 +105,8 @@ public class ConfigurationPlaceholderConfigurer implements BeanFactoryPostProces
     /**
      * Set the prefix that a placeholder string starts with.
      * The default is {@value #DEFAULT_PLACEHOLDER_PREFIX}.
+     * @param placeholderPrefix
+     * description
      */
     public void setPlaceholderPrefix(String placeholderPrefix) {
         this.placeholderPrefix = placeholderPrefix;
@@ -111,6 +115,8 @@ public class ConfigurationPlaceholderConfigurer implements BeanFactoryPostProces
     /**
      * Set the suffix that a placeholder string ends with.
      * The default is {@value #DEFAULT_PLACEHOLDER_SUFFIX}.
+     * @param placeholderSuffix
+     * description
      */
     public void setPlaceholderSuffix(String placeholderSuffix) {
         this.placeholderSuffix = placeholderSuffix;
@@ -121,6 +127,8 @@ public class ConfigurationPlaceholderConfigurer implements BeanFactoryPostProces
      * and the associated default value, or {@code null} if no such
      * special character should be processed as a value separator.
      * The default is {@value #DEFAULT_VALUE_SEPARATOR}.
+     * @param valueSeparator
+     * description
      */
     public void setValueSeparator(String valueSeparator) {
         this.valueSeparator = valueSeparator;
@@ -134,6 +142,8 @@ public class ConfigurationPlaceholderConfigurer implements BeanFactoryPostProces
      * <p>By default, no such null value is defined. This means that
      * there is no way to express {@code null} as a property
      * value unless you explicitly map a corresponding value here.
+     * @param nullValue
+     * desc
      */
     public void setNullValue(String nullValue) {
         this.nullValue = nullValue;
@@ -145,6 +155,8 @@ public class ConfigurationPlaceholderConfigurer implements BeanFactoryPostProces
      * to resolve. Switch this flag to "true" in order to preserve the placeholder
      * String as-is in such a case, leaving it up to other placeholder configurers
      * to resolve it.
+     * @param ignoreUnresolvablePlaceholders
+     * desc
      */
     public void setIgnoreUnresolvablePlaceholders(boolean ignoreUnresolvablePlaceholders) {
         this.ignoreUnresolvablePlaceholders = ignoreUnresolvablePlaceholders;
@@ -152,6 +164,8 @@ public class ConfigurationPlaceholderConfigurer implements BeanFactoryPostProces
 
     /**
      * Set the configuration to load properties.
+     * @param configuration
+     * desc
      */
     public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;

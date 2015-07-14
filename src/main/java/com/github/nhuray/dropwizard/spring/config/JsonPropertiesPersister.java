@@ -12,7 +12,7 @@ import java.util.Properties;
 
 /**
  * {@link org.springframework.util.PropertiesPersister} that reads from a JSON source.
- * <p/>
+ * <p>
  * This code was inspired from  <a href="https://gist.com.com/2051955">Dave Syer YamlPropertiesFactoryBean</a>.
  *
  * @author Dave Syer
@@ -39,8 +39,11 @@ public class JsonPropertiesPersister extends DefaultPropertiesPersister {
      * save it as Property. As we are going deeper into map we generate compound key as path-like String
      *
      * @param props
+     * desc
      * @param reader
+     * desc
      * @throws IOException
+     * desc
      * @see org.springframework.util.PropertiesPersister#load(java.util.Properties, java.io.Reader)
      */
     @Override

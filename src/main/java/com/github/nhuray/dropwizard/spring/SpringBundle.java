@@ -4,7 +4,6 @@ import com.codahale.metrics.health.HealthCheck;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.nhuray.dropwizard.spring.config.ConfigurationPlaceholderConfigurer;
 import com.google.common.base.Preconditions;
-import com.sun.jersey.spi.inject.InjectableProvider;
 import io.dropwizard.Configuration;
 import io.dropwizard.ConfiguredBundle;
 import io.dropwizard.lifecycle.Managed;
@@ -13,6 +12,7 @@ import io.dropwizard.servlets.tasks.Task;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.eclipse.jetty.util.component.LifeCycle;
+import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -42,7 +42,7 @@ public class SpringBundle<T extends Configuration> implements ConfiguredBundle<T
 
     /**
      * Creates a new SpringBundle to automatically initialize Dropwizard {@link Environment}
-     * <p/>
+     * <p>
      *
      * @param context the application context to load
      */
@@ -52,7 +52,7 @@ public class SpringBundle<T extends Configuration> implements ConfiguredBundle<T
 
     /**
      * Creates a new SpringBundle to automatically initialize Dropwizard {@link Environment}
-     * <p/>
+     * <p>
      *
      * @param context               the application context to load
      * @param registerConfiguration register Dropwizard configuration as a Spring Bean.
@@ -71,7 +71,7 @@ public class SpringBundle<T extends Configuration> implements ConfiguredBundle<T
 
     /**
      * Creates a new SpringBundle to automatically initialize Dropwizard {@link Environment}
-     * <p/>
+     * <p>
      *
      * @param context               the application context to load
      * @param registerConfiguration register Dropwizard configuration as a Spring Bean.
@@ -109,7 +109,7 @@ public class SpringBundle<T extends Configuration> implements ConfiguredBundle<T
         registerServerLifecycleListeners(environment, context);
         registerTasks(environment, context);
         registerHealthChecks(environment, context);
-        registerInjectableProviders(environment, context);
+        registerAbstractBinders(environment, context);
         registerProviders(environment, context);
         registerResources(environment, context);
         environment.lifecycle().manage(new SpringContextManaged(context));
@@ -230,18 +230,18 @@ public class SpringBundle<T extends Configuration> implements ConfiguredBundle<T
 
 
     /**
-     * Register {@link InjectableProvider}s in Dropwizard {@link Environment} from Spring application context.
+     * Register {@link org.glassfish.hk2.utilities.binding.AbstractBinder}s in Dropwizard {@link Environment} from Spring application context.
      *
      * @param environment the Dropwizard environment
      * @param context     the Spring application context
      */
-    private void registerInjectableProviders(Environment environment, ConfigurableApplicationContext context) {
-        final Map<String, InjectableProvider> beansOfType = context.getBeansOfType(InjectableProvider.class);
+    private void registerAbstractBinders(Environment environment, ConfigurableApplicationContext context) {
+        final Map<String, AbstractBinder> beansOfType = context.getBeansOfType(AbstractBinder.class);
         for (String beanName : beansOfType.keySet()) {
-            // Add injectableProvider to Dropwizard environment
-            InjectableProvider injectableProvider = beansOfType.get(beanName);
-            environment.jersey().register(injectableProvider);
-            LOG.info("Registering injectable provider: " + injectableProvider.getClass().getName());
+            // Add abstractBinder to Dropwizard environment
+            AbstractBinder abstractBinder = beansOfType.get(beanName);
+            environment.jersey().register(abstractBinder);
+            LOG.info("Registering abstract binder: " + abstractBinder.getClass().getName());
         }
     }
 
